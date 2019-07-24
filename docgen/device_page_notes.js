@@ -489,6 +489,47 @@ Where:
 - \`strobe\`: \`true\` or \`false\` will let the strobe flash once during the alarm
         `,
     },
+    {
+        model: 'TH1123ZB',
+        note: `
+### Pairing
+Additional steps are required because the Sinope thermostat does not provide a \`modelId\` in its database entry,
+and thus zigbee2mqtt cannot identify the product or how to handle it.
+
+* If the thermostat was already paired to another Zigbee coordinator (if not go to next step): Hold down both buttons until you see all the symbol on screen and reboot.
+* Start zigbee2mqtt.
+* Hold down both buttons at the same for a few seconds. When you release you will see at the top right corner the pairing symbol connecting to the coordinator.
+* Wait for few seconds. The system may create a few differents connections.
+* Stop zigbee2mqtt.
+* Edit the file \`database.db\`.
+* Look for lines with have field \`"manufId":4508\` 
+* Remove all these specific lines but *one*
+* Add \`"modelId":"TH1123ZB",\` just befor the \`"manudId":4508\` field.
+* Save and restart zigbee2mqtt and your device should be recoqnize.
+
+### Device type specific configuration
+*[How to use device type specific configuration](../configuration/device_specific_configuration.md)*
+
+* \`local_temperature\`: 
+* \`pi_heating_demand\`: 
+* \`occupied_heating_setpoint\`: 
+* \`unoccupied_heating_setpoint\`: 
+* \`system_mode\`: 
+* \`running state\`: 
+* \`temperature_display_mode\`: 
+* \`keypad_lockout\`: 
+* \`thermostat_occupancy\`: 
+* \`backlight_auto_dim\`: 
+* \`enable_outdoor_temperature\`: 
+* \`thermostat_outdoor_temperature\`: 
+* \`thermostat_time\`: 
+* 
+* \`occupancy_timeout\`: Timeout (in seconds) after the \`occupancy: false\` message is sent.
+If not set, the timeout is \`90\` seconds.
+When set to \`0\` no \`occupancy: false\` is send.
+`,
+    },
+    {
 ];
 
 module.exports = notes;
